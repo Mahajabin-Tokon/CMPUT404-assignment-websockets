@@ -125,11 +125,15 @@ function addEntity(entity, data) {
     world[entity] = data;
     drawNextFrame(); // (but should we?)
     //XXX: Send a XHTML Request that updates the entity you just modified!
+    
     var message = {};
     message[entity] = data;
-    console.log(data)
-    console.log(message[entity])
-    console.log(JSON.stringify(message))
+
+    // console.log(data)
+    // console.log(message[entity])
+    // console.log(JSON.stringify(message))
+    // console.log(socket);
+    
     socket.send(JSON.stringify(message))
 }
 var counter = 0;
@@ -260,10 +264,14 @@ function wsSetup() {
     socket = new WebSocket(url);
     socket.onopen = function() {
         //XXX: TODO What are you going to do here?
+        console.log("Websocket is open.")
     };
     socket.onerror = function(msg) {
-        debug("WebSocket Error:" + msg.data);
+        console.log("WebSocket Error:" + msg.data);
     };
+    // socket.onclose = function(){
+    //     console.log("Closing socket.")
+    // };
     socket.onmessage = function(msg) {  
         try {
             debug("WebSocket Recv:" + msg.data);
@@ -271,9 +279,9 @@ function wsSetup() {
             var msgData = JSON.parse(msg.data);
             var dataInMsgData = "";
             for (dataInMsgData in msgData) {
-                console.log("dataInMsgData: "+(dataInMsgData).toString())
-                console.log("world[dataInMsgData]: "+(world[dataInMsgData]).toString())
-                console.log("msgData[dataInMsgData]: "+(msgData[dataInMsgData]).toString())
+                // console.log("dataInMsgData: "+(dataInMsgData).toString())
+                // console.log("world[dataInMsgData]: "+(world[dataInMsgData]).toString())
+                // console.log("msgData[dataInMsgData]: "+(msgData[dataInMsgData]).toString())
                 world[dataInMsgData] = msgData[dataInMsgData]
             }
             drawNextFrame();
