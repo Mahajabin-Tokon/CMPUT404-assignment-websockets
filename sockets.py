@@ -27,6 +27,9 @@ sockets = Sockets(app)
 app.debug = True
 clients = list()
 
+
+# https://github.com/uofa-cmput404/cmput404-slides/blob/master/examples/WebSocketsExamples/broadcaster.py
+# Taken from professor's broadcaster example
 class Client:
     def __init__(self):
         self.queue = queue.Queue()
@@ -70,7 +73,11 @@ class World:
     def world(self):
         return self.space
 
-myWorld = World()        
+myWorld = World()   
+
+
+# https://github.com/uofa-cmput404/cmput404-slides/blob/master/examples/WebSocketsExamples/broadcaster.py
+# Taken from professor's broadcaster example
 
 def set_listener( entity, data ):
     ''' do something with the update ! '''
@@ -89,6 +96,8 @@ def hello():
     '''Return something coherent here.. perhaps redirect to /static/index.html '''
     return flask.redirect("/static/index.html", code=302)
 
+# https://github.com/uofa-cmput404/cmput404-slides/blob/master/examples/WebSocketsExamples/broadcaster.py
+# Taken from professor's broadcaster example
 
 def read_ws(ws,client):
     '''A greenlet function that reads from the websocket and updates the world'''
@@ -106,13 +115,15 @@ def read_ws(ws,client):
                 break
     except:
         '''Done'''
+# https://github.com/uofa-cmput404/cmput404-slides/blob/master/examples/WebSocketsExamples/broadcaster.py
+# Taken from professor's broadcaster example
 
 @sockets.route('/subscribe')
 def subscribe_socket(ws):
     '''Fufill the websocket URL of /subscribe, every update notify the
        websocket and read updates from the websocket '''
     # XXX: TODO IMPLEMENT ME
-    print("Hell0")
+    
     client = Client()
     clients.append(client)
     g = gevent.spawn( read_ws, ws, client )    
@@ -142,6 +153,10 @@ def flask_post_json():
     else:
         return json.loads(request.form.keys()[0])
 
+
+# https://github.com/uofa-cmput404/cmput404-slides/blob/master/examples/ObserverExampleAJAX/server.py
+# Taken from professor's ObserverExampleAJAX example
+
 @app.route("/entity/<entity>", methods=['POST','PUT'])
 def update(entity):
     '''update the entities via this interface'''
@@ -160,7 +175,6 @@ def world():
 def get_entity(entity):
     '''This is the GET version of the entity interface, return a representation of the entity'''
     v = myWorld.get(entity)
-    # myWorld.clear()
     return flask.jsonify( v )
 
 @app.route("/clear", methods=['POST','GET'])
@@ -168,8 +182,6 @@ def clear():
     '''Clear the world out!'''
     myWorld.clear()
     return flask.jsonify(myWorld.world())
-
-
 
 if __name__ == "__main__":
     ''' This doesn't work well anymore:
