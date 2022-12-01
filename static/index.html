@@ -136,6 +136,8 @@ function addEntity(entity, data) {
     drawNextFrame(); // (but should we?)
     //XXX: Send a XHTML Request that updates the entity you just modified!
     
+    // Idea taken from TA during office hour
+    
     // Sending entity directly to the socket 
     var message = {};
     message[entity] = data;
