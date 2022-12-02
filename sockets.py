@@ -29,7 +29,7 @@ clients = list()
 
 
 # https://github.com/uofa-cmput404/cmput404-slides/blob/master/examples/WebSocketsExamples/broadcaster.py
-# Taken from professor's broadcaster example
+# Taken from class broadcaster example
 class Client:
     def __init__(self):
         self.queue = queue.Queue()
@@ -97,7 +97,7 @@ def hello():
     return flask.redirect("/static/index.html", code=302)
 
 # https://github.com/uofa-cmput404/cmput404-slides/blob/master/examples/WebSocketsExamples/broadcaster.py
-# Taken from professor's broadcaster example
+# Taken from class broadcaster example
 
 def read_ws(ws,client):
     '''A greenlet function that reads from the websocket and updates the world'''
@@ -115,8 +115,6 @@ def read_ws(ws,client):
                 break
     except:
         '''Done'''
-# https://github.com/uofa-cmput404/cmput404-slides/blob/master/examples/WebSocketsExamples/broadcaster.py
-# Taken from professor's broadcaster example
 
 @sockets.route('/subscribe')
 def subscribe_socket(ws):
@@ -155,7 +153,7 @@ def flask_post_json():
 
 
 # https://github.com/uofa-cmput404/cmput404-slides/blob/master/examples/ObserverExampleAJAX/server.py
-# Taken from professor's ObserverExampleAJAX example
+# Taken from class ObserverExampleAJAX example
 
 @app.route("/entity/<entity>", methods=['POST','PUT'])
 def update(entity):
